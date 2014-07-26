@@ -1,3 +1,13 @@
+#!/usr/bin/env python
+#title           :backup.py
+#description     :This will create a header for a python script.
+#author          :Alessandro Impellizzeri
+#date            :26.07.2014
+#version         :0.1
+#usage           :python backup.py
+#notes           :
+#python_version  :3.3  
+#==============================================================================
 from filecmp import cmp
 import sys
 import os
