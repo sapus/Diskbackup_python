@@ -40,7 +40,7 @@ def getUpToDateFiles(path):
         
     return UpToDateFiles
 
-    
+#Restore the backup files to a folder    
 def restore(backdir,dir):
     files = getUpToDateFiles(backdir)
     
@@ -61,7 +61,8 @@ def restore(backdir,dir):
     
     for folder in thefolders:
         restore(os.path.join(backdir,folder),os.path.join(dir,folder))
-            
+
+#Backup a folder to a backup folder            
 def backup(dir, backdir=None,types=None, files=None):
     "Back up files or files with extension in passed tuple types"
 
@@ -122,12 +123,14 @@ def backup(dir, backdir=None,types=None, files=None):
                 backup(abspath, os.path.join(backdir,file), types)
             pass
 
+#Delete all Version files older than version
 def deleteUpToVersionFiles(directory,filename,version):
     for i in range(version):
         filetodelete =  os.path.join(directory,str(i+1) + '.bak.' + filename)
         print ('Removing : ',filetodelete)
         os.remove(filetodelete)    
-            
+
+#Delete all old version files            
 def cleanbackup(backdir):
     files = getUpToDateFiles(backdir)
     for file in files:
@@ -142,6 +145,7 @@ def cleanbackup(backdir):
     for folder in thefolders:
         cleanbackup(os.path.join(backdir,folder))    
 
+#Delete all the files in the backup folder that are no more in the directory folder
 def syncdeletebackup(dir,backdir):
     backfiles = getUpToDateFiles(backdir)
     dirfiles = list(files(dir))
@@ -155,6 +159,7 @@ def syncdeletebackup(dir,backdir):
     for folder in thefolders:
         syncdeletebackup(os.path.join(dir,folder),os.path.join(backdir,folder))    
 
+#Delete all the files in the folder that are no more in the backup folder
 def syncdeletedirectory(backdir,dir):
     backfiles = getUpToDateFiles(backdir)
     backonlyfiles = [file[0] for file in backfiles]
